@@ -1,0 +1,5 @@
+Tak, istnieje algorytm, który pozwala określić najbardziej optymalny sposób wypłaty pieniędzy z bankomatu w nominałach. Nazywa się to problemem wydawania reszty (ang. change-making problem) i jest on dobrze zbadany w teorii algorytmów.
+
+W najprostszym przypadku, gdy bankomat ma jedynie ograniczoną liczbę banknotów w kilku nominałach, można zastosować algorytm zachłanny (greedy algorithm), który polega na wyborze największego nominału, który nie przekracza pozostałej kwoty, i powtarzaniu tej operacji aż do wypłacenia całej kwoty.
+
+Jednak w bardziej skomplikowanych przypadkach, gdy bankomat ma wiele różnych nominałów i/lub istnieją limity dla ilości banknotów danego nominału, algorytm zachłanny nie daje optymalnego rozwiązania. W takich przypadkach można zastosować dynamiczny algorytm programowania, który znajduje optymalne rozwiązanie poprzez rozwiązanie problemu w sposób rekurencyjny.

@@ -1,0 +1,288 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace ATM
+{
+    internal class Bankomat
+    {
+
+        public void WyplacPieniadze(int kwota, int wartosc200, int wartosc100, int wartosc50, int wartosc20, int wartosc10)
+        {
+            //zliczanie kwoty dostępnej w bankomacie w bankomacie
+            int sumaBanknotow = 0;
+            for (int i = 0; i < Form1.instance.availableNotes.Length; i++)
+            {
+                sumaBanknotow += Form1.instance.availableNotes[i] * Form1.instance.numberOfNotes[i];
+            }
+            if(kwota > sumaBanknotow)
+            {
+                MessageBox.Show("Brak wystarczającej ilości banknotów");
+                return;
+            }
+            
+
+            bool wyplacono = false;
+            int wydano200 = 0;
+            int wydano100 = 0;
+            int wydano50 = 0;
+            int wydano20 = 0;
+            int wydano10 = 0;
+
+            int li200 = 0;
+            int li100 = 0;
+            int li50 = 0;
+            int li20 = 0;
+            int li10 = 0;
+
+            int najwieksza = 0;
+            int licznikNajwiekszych = 0;
+
+            // Sprawdzenie, która zmienna jest największa
+            if (wartosc200 >= najwieksza)
+            {
+                if (wartosc200 > najwieksza)
+                {
+                    najwieksza = wartosc200;
+                    licznikNajwiekszych = 1;
+                }
+                else
+                {
+                    licznikNajwiekszych++;
+                }
+            }
+            if (wartosc100 >= najwieksza)
+            {
+                if (wartosc100 > najwieksza)
+                {
+                    najwieksza = wartosc100;
+                    licznikNajwiekszych = 1;
+                }
+                else
+                {
+                    licznikNajwiekszych++;
+                }
+            }
+            if (wartosc50 >= najwieksza)
+            {
+                if (wartosc50 > najwieksza)
+                {
+                    najwieksza = wartosc50;
+                    licznikNajwiekszych = 1;
+                }
+                else
+                {
+                    licznikNajwiekszych++;
+                }
+            }
+            if (wartosc20 >= najwieksza)
+            {
+                if (wartosc20 > najwieksza)
+                {
+                    najwieksza = wartosc20;
+                    licznikNajwiekszych = 1;
+                }
+                else
+                {
+                    licznikNajwiekszych++;
+                }
+            }
+            if (wartosc10 >= najwieksza)
+            {
+                if (wartosc10 > najwieksza)
+                {
+                    najwieksza = wartosc10;
+                    licznikNajwiekszych = 1;
+                }
+                else
+                {
+                    licznikNajwiekszych++;
+                }
+            }
+
+            // Wykonanie działania na największej zmiennej, jeśli jest tylko jedna
+            if (licznikNajwiekszych == 1)
+            {
+                if (najwieksza == wartosc200)
+                {
+                    if (kwota >= 200 && wartosc200 > 0)
+                    {
+                        kwota -= 200;
+                        wartosc200--;
+                        wydano200++;
+                    }
+                }
+                else if (najwieksza == wartosc100)
+                {
+                    if (kwota >= 100 && wartosc100 > 0)
+                    {
+                        kwota -= 100;
+                        wartosc100--;
+                        wydano100++;
+                    }
+                }
+                else if (najwieksza == wartosc50)
+                {
+                    if (kwota >= 50 && wartosc50 > 0)
+                    {
+                        kwota -= 50;
+                        wartosc50--;
+                        wydano50++;
+                    }
+                }
+                else if (najwieksza == wartosc20)
+                {
+                    if (kwota >= 20 && wartosc20 > 0)
+                    {
+                        kwota -= 20;
+                        wartosc20--;
+                        wydano20++;
+                    }
+                }
+                else if (najwieksza == wartosc10)
+                {
+                    if (kwota >= 10 && wartosc10 > 0)
+                    {
+                        kwota -= 10;
+                        wartosc10--;
+                        wydano10++;
+                    }
+                }
+            }
+            else if (licznikNajwiekszych > 1)
+            {
+                if (najwieksza == wartosc200)
+                {
+                    if (kwota >= 200 && wartosc200 > 0)
+                    {
+                        kwota -= 200;
+                        wartosc200--;
+                        wydano200++;
+                    }
+                }
+                
+                if (najwieksza == wartosc100)
+                {
+                    if (kwota >= 100 && wartosc100 > 0)
+                    {
+                        kwota -= 100;
+                        wartosc100--;
+                        wydano100++;
+                    }
+                }
+                
+                if (najwieksza == wartosc50)
+                {
+                    if (kwota >= 50 && wartosc50 > 0)
+                    {
+                        kwota -= 50;
+                        wartosc50--;
+                        wydano50++;
+                    }
+                }
+                
+                if (najwieksza == wartosc20)
+                {
+                    if (kwota >= 20 && wartosc20 > 0)
+                    {
+                        kwota -= 20;
+                        wartosc20--;
+                        wydano20++;
+                    }
+                }
+                
+                if (najwieksza == wartosc10)
+                {
+                    if (kwota >= 10 && wartosc10 > 0)
+                    {
+                        kwota -= 10;
+                        wartosc10--;
+                        wydano10++;
+                    }
+                }
+            }
+
+                while (kwota > 0)
+            {
+                wyplacono = false;
+                li200 = 0;
+                li100 = 0;
+                li50 = 0;
+                li20 = 0;
+                li10 = 0;
+
+
+                if (kwota >= 200 && wartosc200 > 0 && li200 < 2)
+                {
+                    kwota -= 200;
+                    wartosc200--;
+                    wyplacono = true;
+                    wydano200++;
+                    li200++;
+                }
+                
+                if (kwota >= 100 && wartosc100 > 0 && li100 < 2)
+                {
+                    kwota -= 100;
+                    wartosc100--;
+                    wyplacono = true;
+                    wydano100++;
+                    li100++;
+                }
+                
+                if (kwota >= 50 && wartosc50 > 0 && li50 < 3)
+                {
+                    kwota -= 50;
+                    wartosc50--;
+                    wyplacono = true;
+                    wydano50++;
+                    li50++;
+                }
+                
+                if (kwota >= 20 && wartosc20 > 0 && li20 < 2)
+                {
+                    kwota -= 20;
+                    wartosc20--;
+                    wyplacono = true;
+                    wydano20++;
+                    li20++;
+                }
+                
+                if (kwota >= 10 && wartosc10 > 0 && li10 < 2)
+                {
+                    kwota -= 10;
+                    wartosc10--;
+                    wyplacono = true;
+                    wydano10++;
+                    li10++;
+                }
+                MessageBox.Show("Kwota: " + kwota);
+
+                if (!wyplacono)
+                {
+                    Console.WriteLine("Nie można wypłacić kwoty.");
+                    break;
+                }
+            }
+
+            if (wyplacono)
+            {
+                Form1.instance.numberOfNotes[0] = wartosc200;
+                Form1.instance.numberOfNotes[1] = wartosc100;
+                Form1.instance.numberOfNotes[2] = wartosc50;
+                Form1.instance.numberOfNotes[3] = wartosc20;
+                Form1.instance.numberOfNotes[4] = wartosc10;
+
+                MessageBox.Show("Kwota została wypłacona.");
+                MessageBox.Show($"Wydano banknotów 200 zł: {wydano200}");
+                MessageBox.Show($"Wydano banknotów 100 zł: {wydano100}");
+                MessageBox.Show($"Wydano banknotów 50 zł: {wydano50}");
+                MessageBox.Show($"Wydano banknotów 20 zł: {wydano20}");
+                MessageBox.Show($"Wydano banknotów 10 zł: {wydano10}");
+            }
+        }
+    }
+}

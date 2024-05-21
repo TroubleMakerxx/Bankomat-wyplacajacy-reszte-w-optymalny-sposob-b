@@ -1,0 +1,88 @@
+using System;
+
+namespace Bankomat
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] availableNotes = { 200, 100, 50, 20, 10 }; //dostępne nominały banknotów
+            int[] numberOfNotes = { 10, 10, 10, 10, 10 }; //ilość dostępnych banknotów danego nominału
+            Console.WriteLine("Witaj w bankomacie!");
+            Console.WriteLine("Dostępne nominały banknotów: 200zł, 100zł, 50zł, 20zł, 10zł");
+            
+            while (true)
+            {
+                int availableAmount = 0;
+                for (int i = 0; i < availableNotes.Length; i++){
+            availableAmount += availableNotes[i] * numberOfNotes[i];
+            }
+                Console.WriteLine($"Witaj w bankomacie! Kwota dostępna w bankomacie: {availableAmount}zł");
+                Console.Write("Podaj kwotę do wypłaty lub wpisz \"stop\", aby zakończyć: ");
+                string userInput = Console.ReadLine();
+
+                if (userInput.ToLower() == "stop")
+                {
+                    Console.WriteLine("Dziękujemy za skorzystanie z bankomatu!");
+                    break;
+                }
+
+                int amountToWithdraw = int.Parse(userInput);
+
+                //sprawdź czy podana kwota jest możliwa do wypłacenia
+                if (amountToWithdraw % 10 != 0)
+                {
+                    Console.WriteLine("Nie można wypłacić podanej kwoty.");
+                }
+                else
+                {
+                    bool canWithdraw = true;
+                    int[] notesToWithdraw = new int[availableNotes.Length];
+
+                    //sprawdź czy jest wystarczająca liczba banknotów do wypłaty podanej kwoty
+                    for (int i = 0; i < availableNotes.Length; i++)
+                    {
+                        notesToWithdraw[i] = Math.Min(amountToWithdraw / availableNotes[i], numberOfNotes[i]);
+
+                        if (notesToWithdraw[i] > 0)
+                        {
+                            amountToWithdraw -= notesToWithdraw[i] * availableNotes[i];
+                        }
+
+                        if (amountToWithdraw == 0)
+                        {
+                            break;
+                        }
+
+                        if (i == availableNotes.Length - 1 && amountToWithdraw > 0)
+                        {
+                            canWithdraw = false;
+                        }
+                    }
+
+                    if (canWithdraw)
+                    {
+                        //wypłać pieniądze i zmień ilość dostępnych banknotów
+                        for (int i = 0; i < availableNotes.Length; i++)
+                        {
+                            numberOfNotes[i] -= notesToWithdraw[i];
+                        }
+
+                        Console.WriteLine("Wypłacono pieniądze:");
+                        for (int i = 0; i < availableNotes.Length; i++)
+                        {
+                            if (notesToWithdraw[i] > 0)
+                            {
+                                Console.WriteLine($"{notesToWithdraw[i]} banknotów {availableNotes[i]}zł");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nie można wypłacić podanej kwoty.");
+                    }
+                }
+            }
+        }
+    }
+}

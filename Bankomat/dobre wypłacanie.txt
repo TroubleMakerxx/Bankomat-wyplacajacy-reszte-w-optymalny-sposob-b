@@ -1,0 +1,114 @@
+using System;
+
+namespace Bankomat
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Bankomat bankomat = new Bankomat();
+            int kwota = 2000;
+            bankomat.WyplacPieniadze(kwota);
+        }
+    }
+
+    class Bankomat
+    {
+        private int banknot200 = 10;
+        private int banknot100 = 10;
+        private int banknot50 = 10;
+        private int banknot20 = 10;
+        private int banknot10 = 10;
+
+        public void WyplacPieniadze(int kwota)
+        {
+            Console.WriteLine($"Żądana kwota: {kwota} zł");
+
+            bool wyplacono = false;
+            int wydano200 = 0;
+            int wydano100 = 0;
+            int wydano50 = 0;
+            int wydano20 = 0;
+            int wydano10 = 0;
+            
+            int li200 = 0;
+            int li100 = 0;
+            int li50 = 0;
+            int li20 = 0;
+            int li10 = 0;
+
+            // Sprawdzenie czy kwota jest podzielna przez banknot z którego wypłacamy
+            if (kwota % 20 != 0)
+            {
+                Console.WriteLine("Nie można wypłacić kwoty, ponieważ nie jest podzielna przez 20 zł.");
+                return;
+            }
+
+            while (kwota > 0)
+            {
+                wyplacono = false;
+                li200 = 0;
+                li100 = 0;
+                li50 = 0;
+                li20 = 0;
+                li10 = 0;
+
+                    if (kwota >= 200 && banknot100 > 0 && li200 < 2 )
+                    {
+                        kwota -= 200;
+                        banknot200--;
+                        wyplacono = true; 
+                        wydano200++;
+                    }
+                    
+                    if (kwota >= 100 && banknot100 > 0 && li100 < 2)
+                    {
+                        kwota -= 100;
+                        banknot100--;
+                        wyplacono = true;
+                        wydano100++;
+                    }
+
+                    if (kwota >= 50 && banknot50 > 0 && li50 < 2)
+                    {
+                        kwota -= 50;
+                        banknot50--;
+                        wyplacono = true;
+                        wydano50++;
+                    }
+
+                    if (kwota >= 20 && banknot20 > 0 && li20 < 2)
+                    {
+                        kwota -= 20;
+                        banknot20--;
+                        wyplacono = true;
+                        wydano20++;
+                    }
+
+                    if (kwota >= 10 && banknot10 > 0 && li10 < 2)
+                    {
+                        kwota -= 10;
+                        banknot10--;
+                        wyplacono = true;
+                        wydano10++;
+                    }
+
+                if (!wyplacono)
+                {
+                    Console.WriteLine("Nie można wypłacić kwoty.");
+                    break;
+                }
+            }
+
+            if (wyplacono)
+            {
+                Console.WriteLine("Kwota została wypłacona.");
+                Console.WriteLine($"Wydano banknotów 200 zł: {wydano200}");
+                Console.WriteLine($"Wydano banknotów 100 zł: {wydano100}");
+                Console.WriteLine($"Wydano banknotów 50 zł: {wydano50}");
+                Console.WriteLine($"Wydano banknotów 20 zł: {wydano20}");
+                Console.WriteLine($"Wydano banknotów 10 zł: {wydano10}");
+            }
+        }
+    }
+}
